@@ -1,0 +1,78 @@
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.location-header {
+  display: flex;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+}
+
+.button-sliders {
+  display: flex;
+  justify-content: center;
+  margin: auto 0px;
+  width: 100px;
+}
+
+.weather {
+  display: flex;
+  @media (max-width: 760px) {
+    flex-direction: column;
+  }
+}
+
+.weather-info {
+  margin: 0px 10px;
+}
+
+.button {
+  background: none;
+  border: none;
+}
+
+.divider {
+  height: 20px;
+  width: 80%;
+  border-bottom: 1px solid black;
+}
+
+.header-text {
+  text-align: center;
+}
+
+.icon {
+  margin: 0px 10px;
+}
+
+.weather-details {
+  display: flex;
+  justify-content: center;
+}
+
+.input-location {
+  border: none;
+}
+.input-day-time-picker {
+  border: none;
+}
+
+.time-text {
+  text-align: center;
+}
+.condition-text {
+  text-align: center;
+}
+
+.weather-icon {
+  margin: auto 5px;
+  width: 50px;
+}
