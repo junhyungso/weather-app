@@ -1,10 +1,10 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { convertDate } from "../utils/convertDate";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { convertDate } from '../utils/convertDate';
 
 const WEATHER_API_BASE_URL =
-  "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
-const api_key = "8KRMPNQ39LDQDQMYB4YN2TPP3";
+  'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/';
+const api_key = '8KRMPNQ39LDQDQMYB4YN2TPP3';
 /*
 I understand the danger of API KEYS in the frontend. I have located them in the .env file but had trouble
 with the webpack of codesandbox for me to grab using process.env.REACT_APP_API_KEY
@@ -14,7 +14,7 @@ so I left them in here for now.
 const useGetWeather = (location: string, day: string) => {
   const [weatherData, setWeatherData] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
-  const [errorData, setErrorData] = useState("");
+  const [errorData, setErrorData] = useState('');
 
   const getWeatherData = async (location: string, date: string) => {
     const response = await axios.get(
@@ -24,31 +24,26 @@ const useGetWeather = (location: string, day: string) => {
   };
 
   useEffect(() => {
-    const startDate = convertDate(day).toISOString().substring(0, 10);
+    const numberOfWeatherData = 4;
+    const startDate = convertDate(day).substring(0, 10);
+    const dates = [startDate];
     const nextDate = new Date();
-    nextDate.setDate(nextDate.getDate() + 7);
-    const secondDate = convertDate(day, nextDate)
-      .toISOString()
-      .substring(0, 10);
-    nextDate.setDate(nextDate.getDate() + 7);
-    const thirdDate = convertDate(day, nextDate).toISOString().substring(0, 10);
-    nextDate.setDate(nextDate.getDate() + 7);
-    const fourthDate = convertDate(day, nextDate)
-      .toISOString()
-      .substring(0, 10);
+
+    for (let i = 0; i < numberOfWeatherData; i++) {
+      nextDate.setDate(nextDate.getDate() + 7);
+      const nextConvertedDate = convertDate(day, nextDate).substring(0, 10);
+      dates.push(nextConvertedDate);
+    }
 
     const fetchAPI = async () => {
       try {
-        const result1 = await getWeatherData(location, startDate);
-        const result2 = await getWeatherData(location, secondDate);
-        const result3 = await getWeatherData(location, thirdDate);
-        const result4 = await getWeatherData(location, fourthDate);
-
-        const data1 = result1.data;
-        const data2 = result2.data;
-        const data3 = result3.data;
-        const data4 = result4.data;
-        setWeatherData([data1, data2, data3, data4]);
+        const newData = [];
+        for (let i = 0; i < numberOfWeatherData; i++) {
+          const result = await getWeatherData(location, dates[i]);
+          const data = result.data;
+          newData.push(data);
+        }
+        setWeatherData(newData);
       } catch (error) {
         setErrorData(error);
       }

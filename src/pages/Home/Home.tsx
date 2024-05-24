@@ -1,33 +1,32 @@
-import { useRef, useState } from "react";
-import NavBar from "../../components/NavBar/NavBar";
-import useGetWeather from "../../hooks/useGetWeather";
+import { useState } from 'react';
+import NavBar from '../../components/NavBar/NavBar';
+import useGetWeather from '../../hooks/useGetWeather';
 
-import "./Home.css";
-import "material-icons/iconfont/material-icons.css";
 import {
-  Schedule,
-  LocationOnOutlined,
+  Air,
   ArrowBackIosNew,
   ArrowForwardIos,
-  WbSunny,
   Cloud,
-  WaterDrop,
-  Air,
   CloudQueue,
+  LocationOnOutlined,
+  Schedule,
   Thunderstorm,
-} from "@mui/icons-material";
-import { convertDate } from "../../utils/convertDate";
-import { dateFormatter } from "../../utils/dateFormatter";
-import LineChart from "../../components/NavBar/LineChart/LineChart";
+  WaterDrop,
+  WbSunny,
+} from '@mui/icons-material';
+import 'material-icons/iconfont/material-icons.css';
+import LineChart from '../../components/NavBar/LineChart/LineChart';
+import { dateFormatter } from '../../utils/dateFormatter';
+import './Home.css';
 
 const Home = () => {
-  const [location, setLocation] = useState("New York, NY");
-  const [day, setDay] = useState("Every Monday");
-  const [time, setTime] = useState("Morning");
+  const [location, setLocation] = useState('New York, NY');
+  const [day, setDay] = useState('Every Monday');
+  const [time, setTime] = useState('Morning');
   const [dayIndex, setDayIndex] = useState(0);
 
-  const dayOftheWeek = day.split(" ")[1];
-  const locationConcat = location?.split(" ").join("");
+  const dayOftheWeek = day.split(' ')[1];
+  const locationConcat = location?.split(' ').join('');
 
   const { weatherData, loadingData, errorData } = useGetWeather(
     locationConcat,
@@ -37,18 +36,18 @@ const Home = () => {
   const weatherData1 = weatherData[dayIndex];
   const weatherData2 = weatherData[dayIndex + 1];
 
-  const weatherCondition1 = weatherData1?.days[0].conditions ?? "null";
+  const weatherCondition1 = weatherData1?.days[0].conditions ?? 'null';
   const weatherTemperature1 = weatherData1?.days[0].temp ?? 0;
   const weatherHumidity1 = weatherData1?.days[0].humidity ?? 0;
   const windSpeed1 = weatherData1?.days[0].windspeed ?? 0;
   const precipChance1 = weatherData1?.days[0].precipprob ?? 0;
 
   const weatherHours1 =
-    time === "Morning" && dayIndex < 2
+    time === 'Morning' && dayIndex < 2
       ? weatherData1?.days[0]?.hours.slice(6, 15)
-      : time === "Afternoon" && dayIndex < 2
+      : time === 'Afternoon' && dayIndex < 2
       ? weatherData1?.days[0]?.hours.slice(10, 20)
-      : time === "Evening" && dayIndex < 2
+      : time === 'Evening' && dayIndex < 2
       ? weatherData1?.days[0]?.hours.slice(15, 24)
       : null;
 
@@ -56,44 +55,44 @@ const Home = () => {
   const dailyHumidity1 = weatherHours1?.map((hour) => hour.humidity) ?? 0;
   const dailyWindSpeed1 = weatherHours1?.map((hour) => hour.windspeed) ?? 0;
 
-  const weatherCondition2 = weatherData2?.days[0].conditions ?? "null";
+  const weatherCondition2 = weatherData2?.days[0].conditions ?? 'null';
   const weatherTemperature2 = weatherData2?.days[0].temp ?? 0;
   const weatherHumidity2 = weatherData2?.days[0].humidity ?? 0;
   const windSpeed2 = weatherData2?.days[0].windspeed ?? 0;
   const precipChance2 = weatherData2?.days[0].precipprob ?? 0;
   const weatherHours2 =
-    time === "Morning" && dayIndex < 1
+    time === 'Morning' && dayIndex < 1
       ? weatherData2?.days[0].hours.slice(6, 15)
-      : time === "Afternoon" && dayIndex < 1
+      : time === 'Afternoon' && dayIndex < 1
       ? weatherData2?.days[0].hours.slice(10, 20)
-      : time === "Evening" && dayIndex < 1
+      : time === 'Evening' && dayIndex < 1
       ? weatherData2?.days[0].hours.slice(15, 24)
       : null;
 
   const dailyTemp2 = weatherHours2?.map((hour) => hour.temp) ?? 0;
   const dailyHumidity2 = weatherHours2?.map((hour) => hour.humidity) ?? 0;
   const dailyWindSpeed2 = weatherHours2?.map((hour) => hour.windspeed) ?? 0;
-  const dateOfWeek = weatherData1?.days[0].datetime.substring(8, 10) ?? "";
-  const dateOfNextWeek = weatherData2?.days[0].datetime.substring(8, 10) ?? "";
+  const dateOfWeek = weatherData1?.days[0].datetime.substring(8, 10) ?? '';
+  const dateOfNextWeek = weatherData2?.days[0].datetime.substring(8, 10) ?? '';
 
   const graphLabel = () => {
-    if (time === "Morning") {
-      return ["6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm"];
-    } else if (time === "Afternoon") {
+    if (time === 'Morning') {
+      return ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm'];
+    } else if (time === 'Afternoon') {
       return [
-        "10am",
-        "11am",
-        "12pm",
-        "1pm",
-        "2pm",
-        "3pm",
-        "4pm",
-        "5pm",
-        "6pm",
-        "7pm",
+        '10am',
+        '11am',
+        '12pm',
+        '1pm',
+        '2pm',
+        '3pm',
+        '4pm',
+        '5pm',
+        '6pm',
+        '7pm',
       ];
     } else {
-      return ["3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"];
+      return ['3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm', '10pm', '11pm'];
     }
   };
 
@@ -101,22 +100,22 @@ const Home = () => {
     labels: graphLabel(),
     datasets: [
       {
-        label: "Temperature",
+        label: 'Temperature',
         data: dailyTemp1,
         fill: false,
-        borderColor: "rgba(75,192,192,1)",
+        borderColor: 'rgba(75,192,192,1)',
       },
       {
-        label: "Humidity",
+        label: 'Humidity',
         data: dailyHumidity1,
         fill: false,
-        borderColor: "#742774",
+        borderColor: '#742774',
       },
       {
-        label: "Wind Speed",
+        label: 'Wind Speed',
         data: dailyWindSpeed1,
         fill: false,
-        borderColor: "#FF5733",
+        borderColor: '#FF5733',
       },
     ],
   };
@@ -125,22 +124,22 @@ const Home = () => {
     labels: graphLabel(),
     datasets: [
       {
-        label: "Temperature",
+        label: 'Temperature',
         data: dailyTemp2,
         fill: false,
-        borderColor: "rgba(75,192,192,1)",
+        borderColor: 'rgba(75,192,192,1)',
       },
       {
-        label: "Humidity",
+        label: 'Humidity',
         data: dailyHumidity2,
         fill: false,
-        borderColor: "#742774",
+        borderColor: '#742774',
       },
       {
-        label: "Wind Speed",
+        label: 'Wind Speed',
         data: dailyWindSpeed2,
         fill: false,
-        borderColor: "#FF5733",
+        borderColor: '#FF5733',
       },
     ],
   };
@@ -173,13 +172,13 @@ const Home = () => {
   };
 
   const conditionIcon = (weatherCondition: string) => {
-    if (weatherCondition.includes("Clear")) {
+    if (weatherCondition.includes('Clear')) {
       return <WbSunny />;
-    } else if (weatherCondition.includes("Cloudy")) {
+    } else if (weatherCondition.includes('Cloudy')) {
       return <Cloud />;
-    } else if (weatherCondition.includes("Partially cloudy")) {
+    } else if (weatherCondition.includes('Partially cloudy')) {
       return <CloudQueue />;
-    } else if (weatherCondition.includes("Rain")) {
+    } else if (weatherCondition.includes('Rain')) {
       return <Thunderstorm />;
     } else {
       return null;
@@ -188,9 +187,9 @@ const Home = () => {
 
   const conditionText = (temp: number, humidity: number) => {
     if (humidity >= 25 && humidity <= 75) {
-      return "Rain possible";
+      return 'Rain possible';
     } else if (temp >= 60 && temp <= 75) {
-      return "Nice Day!";
+      return 'Nice Day!';
     }
   };
 
