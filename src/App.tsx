@@ -1,7 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NavBar from "./components/NavBar/NavBar";
-import "./styles.css";
-import Home from "./pages/Home/Home";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home/Home';
+import './styles.css';
 
 export default function App() {
   return (
